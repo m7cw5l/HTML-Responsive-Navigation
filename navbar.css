@@ -1,0 +1,213 @@
+/* style for navigation */
+:root {
+    --tint-color: red;
+    --navbar-background: gray;
+    --navbar-perimeter: var(--tint-color);
+    --text: #ffffff;
+    --navbar-height: 60px;
+}
+
+header {
+    background: var(--navbar-background);
+    text-align: left;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    width: 100%;
+    border-bottom: 2px solid var(--navbar-perimeter);
+}
+
+.logo {
+    display: block;
+    height: 40px;
+    margin-left: 1em;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    content: url("logo.svg");
+}
+
+.nav-toggle {
+    display: none;
+}
+
+.nav-toggle-label {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 1em;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.nav-toggle-label span,
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+    display: block;
+    background: var(--text);
+    height: 2px;
+    width: 1.5em;
+    border-radius: 2px;
+    position: relative;
+    transition: 300ms;
+    transform-origin: center;
+}
+
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+    content: "";
+    position: absolute;
+}
+
+.nav-toggle-label span::before {
+    bottom: 7px;
+}
+
+.nav-toggle-label span::after {
+    top: 7px;
+}
+
+nav {
+    position: absolute;
+    text-align: center;
+    top: 100%;
+    left: 0;
+    background: var(--navbar-background);
+    width: 100%;
+    transform: scale(1, 0);
+    transform-origin: top;
+    transition: transform 400ms ease-in-out;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+nav li {
+    margin-bottom: 1em;
+    margin-left: 1em;
+}
+
+nav a {
+    color: var(--text);
+    text-decoration: none;
+    opacity: 0;
+    transition: opacity 150ms ease-in-out;
+}
+
+nav a:hover {
+    color: var(--tint-color);
+}
+
+.nav-toggle:checked ~ nav {
+    transform: scale(1, 1);
+}
+
+.nav-toggle:checked ~ nav a {
+    opacity: 1;
+    transition: opacity 250ms ease-in-out 250ms;
+}
+
+.nav-toggle:checked ~ label span::before {
+    transform: translateY(7px) rotate(-45deg);
+}
+
+.nav-toggle:checked ~ label span {
+    background: var(--navbar);
+}
+
+.nav-toggle:checked ~ label span::after {
+    transform: translateY(-7px) rotate(45deg);
+}
+
+.active {
+    color: var(--tint-color);
+}
+
+.spacer {
+    height: var(--navbar-height);
+}
+
+@media screen and (min-width: 520px) {
+    :root {
+        --navbar-height: 70px;
+    }
+
+    .nav-toggle-label {
+        display: none;
+    }
+
+    header {
+        display: grid;
+        grid-template-columns: 40px auto minmax(350px, 8fr) 40px;
+    }
+
+    .logo {
+        grid-column: 2 / span 1;
+        height: 50px;
+        margin: 10px 0;
+        cursor: pointer;
+    }
+
+    nav {
+        all: unset;
+        grid-column: 3 / 4;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        text-align: right;
+    }
+
+    nav ul {
+        display: flex;
+    }
+
+    nav li:first-child {
+        margin-left: 0;
+    }
+
+    nav li {
+        margin-left: 2em;
+        margin-bottom: 0;
+    }
+
+    nav a {
+        opacity: 1;
+        position: relative;
+        padding: 0 5px;
+    }
+
+    nav a::before {
+        content: "";
+        display: block;
+        height: 2px;
+        border-radius: 2px;
+        background: var(--tint-color);
+        position: absolute;
+        bottom: -.3em;
+        left: 0;
+        right: 0;
+        transform: scale(0, 1);
+        transition: transform 250ms ease-in-out;
+    }
+
+    nav a:hover::before {
+        transform: scale(1, 1);
+    }
+
+    .active::before {
+        content: "";
+        display: block;
+        height: 2px;
+        border-radius: 2px;
+        background: var(--tint-color);
+        position: absolute;
+        bottom: -.3em;
+        left: 0;
+        right: 0;
+        transform: scale(1, 1);
+    }
+}
